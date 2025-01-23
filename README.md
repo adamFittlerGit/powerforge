@@ -1,26 +1,63 @@
 # Power Forge
+
 ## Introduction
-This will be my all in one physical development platform.  I want to leverage every possible technology in order to give myself a competitive edge as well as advanced analytics on my performance and development overtime.  The application will have but will not be limited to the following features.
-- Macro Food Tracker (To Replace MFP)
-- Program Builder
-  - Programs are made up of workouts
-  - Workouts made up of sections etc
-- Workout Mode
-  - Allow video upload of the lifts
-  - Leverage CV for bar speed
-  - Leverage NLP for analysis of previous performance
-- Analytics Mode
-    - Allows for advanced data analytics leverging nlp to produce graphs of performance metrics overtime
-    - Use supalytics as a guid on creating this
-- Hositing
-  - Initially self host and get a decent graphics card to allow for inference and training
-  - If others want to use and it grows, move to the cloud but it'll be expensive for inference
- - Shadow / Bag Work
-   - Incorperation of pose estimation on bag work as well as shadow sparring to allow for pattern recognition as well as bad habit elimination
+
+Power Forge is an all-in-one physical development platform designed to give you a competitive edge by integrating cutting-edge technologies for advanced performance tracking and analysis. The platform will leverage various tools and methodologies to track, analyse, and improve your physical performance over time. The application will include the following features, but not be limited to:
+
+### Key Features:
+- **Macro Food Tracker**  
+  A replacement for MyFitnessPal (MFP), designed to help you track your food intake and macros with greater precision and customisation.
   
-## Development Idology
-As a relatively inexperienced solo developer this is a massive task for me to undertake, however I do feel that I have what it takes as long as I work on building it slowly brick by brick.  My plan is to work on completing this project and refining it over the next two years.
+- **Program Builder**  
+  - Programs are structured around workouts.
+  - Workouts are made up of sections (e.g., warm-ups, main lifts, accessory exercises, cool-downs, etc.).
+  
+- **Workout Mode**  
+  - Video upload functionality to capture your lifts for later analysis.
+  - Integration of Computer Vision (CV) to track bar speed and other performance metrics during lifts.
+  - Natural Language Processing (NLP) for analysing your previous performances and providing insightful feedback.
+  
+- **Analytics Mode**  
+  - Advanced data analytics powered by NLP, which generates performance graphs and trends over time.
+  - Insights based on performance data will be provided with the guidance of analytics frameworks like Supalytics to ensure accuracy and usability.
+  
+- **Hosting**  
+  - Initially, the platform will be self-hosted, with the focus on acquiring a capable graphics card for local inference and model training.
+  - As the platform grows, and if there’s demand from other users, the system will scale to the cloud. However, cloud inference may incur significant costs.
+  
+- **Shadow / Bag Work Integration**  
+  - Incorporation of pose estimation technology for both shadow sparring and bag work to analyse movement patterns.
+  - Use pattern recognition to identify and eliminate bad habits in your technique.
+  
+## Development Ideology
 
-This is a huge project requiring good knowledge of both ML and software engineering but also hardware.  Thus, I plan to go slow and incrementally develop the product iteratively.  I will initially start by building the more interesting elements to me that being the ML computer vision and NLP.  First just getting an upload portal created and then working on understanding the models as well collecting the training data required (this will take a lot of time).  I will need to be diligant in recording my own workouts in order to ge enough footage of myself.  While doing boring data collection I should build the program and workout tracking side of the app as this will be more standard and easy.  Finally when I'm ready for model training and I have a labelled dataset I can build my own PC with soem great specs and use it as a home server or alternativly I can leverage collab for training and then use post quantisation or QAT to make the model simpler for inference also I could have multiple models and also apply conepts such as pruning into the mix to make it even better.
+As an aspiring solo developer with limited experience, this project is an ambitious undertaking, but I believe it’s achievable if I approach it incrementally, building it step by step. My long-term goal is to refine and complete this project over the next two years.
 
-But the idea is to move slowly and build it up step by step.  
+### Development Plan:
+This is a substantial project that requires knowledge of machine learning (ML), software engineering, and hardware systems. I will take an iterative, slow-paced approach to ensure each component is thoroughly developed and refined before moving onto the next phase. Below is my planned approach:
+
+1. **Starting with the Core Features**  
+   I’ll begin by focusing on the more technically interesting elements, such as integrating Machine Learning (ML) for computer vision and NLP. These will be key differentiators for the platform and will require a solid understanding of both the technology and data.
+
+2. **Building the Upload Portal**  
+   The first task will be setting up a simple video upload portal. This will allow me to begin gathering the data necessary to train the ML models, even before the full functionality of the app is implemented.
+
+3. **Data Collection for Model Training**  
+   Collecting data will be the most time-consuming phase, as I need footage of my workouts, lifts, and other activities for training the models. Consistent documentation of my training sessions will be critical to building a useful dataset. While gathering this data, I’ll also work on other aspects of the app that are less complex, such as the program and workout tracking features.
+
+4. **Program and Workout Tracking**  
+   This part of the app will be relatively straightforward. Users will be able to create and track their workout programs, log exercises, and monitor progress. This feature will serve as the foundation for the more advanced features later on.
+
+5. **Building the Home Server and Hardware Setup**  
+   Once I have a labelled dataset, I’ll start building a high-performance PC capable of handling model training and inference. The PC will function as a home server where I can run models locally. Alternatively, I can use Google Colab for training and implement techniques like post-quantisation or Quantisation-Aware Training (QAT) to simplify the models for more efficient inference on limited hardware.
+
+6. **Iterative Model Improvement**  
+   As I move forward with model training, I will continually improve the models. Techniques like pruning, model compression, and multi-model approaches will be explored to ensure that inference can be performed on a variety of devices with minimal latency and cost.
+
+7. **Long-Term Scaling and Hosting Options**  
+   In the event that the platform gains traction, I will consider moving to cloud hosting to scale the service. However, I’m aware that the cost of cloud inference can be high, so this will be carefully planned out in the future.
+
+### Final Thoughts
+The key to success in this project is moving slowly and steadily. I’ll focus on completing small, manageable tasks while ensuring each component is refined before moving onto the next. This iterative approach will allow me to address challenges as they arise and continuously improve the product. 
+
+Building a platform of this complexity requires patience, dedication, and a long-term mindset. I’m prepared to take on this challenge and excited to see how the platform evolves over time.
