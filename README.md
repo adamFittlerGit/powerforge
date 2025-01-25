@@ -61,3 +61,148 @@ This is a substantial project that requires knowledge of machine learning (ML), 
 The key to success in this project is moving slowly and steadily. I’ll focus on completing small, manageable tasks while ensuring each component is refined before moving onto the next. This iterative approach will allow me to address challenges as they arise and continuously improve the product. 
 
 Building a platform of this complexity requires patience, dedication, and a long-term mindset. I’m prepared to take on this challenge and excited to see how the platform evolves over time.
+
+
+### Database Setup and Structure
+The following is deepseeks recommendations that aligned with what I wanted and confirmed my idea of having junction tables with composite primary keys to allow for flexibility and modularity in the reuse of workouts, exercises etc.
+
+Here's the exact SQL code to create all the tables in Supabase (PostgreSQL), including proper data types and foreign key relationships:
+
+sql
+Copy
+-- Create Base Tables
+CREATE TABLE programs (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE workouts (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE sections (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE exercises (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    video_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Junction Tables with Ordering
+CREATE TABLE program_workouts (
+    program_id INT REFERENCES programs(id) ON DELETE CASCADE,
+    workout_id INT REFERENCES workouts(id) ON DELETE CASCADE,
+    sort_order INT NOT NULL,
+    PRIMARY KEY (program_id, workout_id)
+);
+
+CREATE TABLE workout_sections (
+    workout_id INT REFERENCES workouts(id) ON DELETE CASCADE,
+    section_id INT REFERENCES sections(id) ON DELETE CASCADE,
+    sort_order INT NOT NULL,
+    PRIMARY KEY (workout_id, section_id)
+);
+
+CREATE TABLE section_exercises (
+    section_id INT REFERENCES sections(id) ON DELETE CASCADE,
+    exercise_id INT REFERENCES exercises(id) ON DELETE CASCADE,
+    sets INT,
+    reps INT,
+    duration INTERVAL,
+    sort_order INT NOT NULL,
+    PRIMARY KEY (section_id, exercise_id)
+);
+
+-- Create Indexes for Faster Querying
+CREATE INDEX idx_program_workouts ON program_workouts(program_id, workout_id);
+CREATE INDEX idx_workout_sections ON workout_sections(workout_id, section_id);
+CREATE INDEX idx_section_exercises ON section_exercises(section_id, exercise_id);
+To execute this in Supabase:
+Go to your Supabase Dashboard
+
+Navigate to SQL Editor
+
+Paste this code into a new query
+
+Click "Run" or press CMD/CTRL + Enter
+
+Key modifications from generic PostgreSQL:
+Added created_at timestamps with time zones
+
+Changed order to sort_order (since ORDER is a reserved keyword)
+
+Added proper indexes for common query patterns
+
+Included ON DELETE CASCADE for referential integrity
+
+Example Insertion (Optional Test Data):
+sql
+Copy
+-- Insert sample data
+INSERT INTO programs (name, description) VALUES 
+('Beginner Strength', '4-week foundational strength program');
+
+INSERT INTO workouts (name, description) VALUES 
+('Full Body A', 'Compound movement focus');
+
+INSERT INTO sections (name, description) VALUES 
+('Warmup', 'Dynamic stretching routine');
+
+INSERT INTO exercises (name, description, video_url) VALUES 
+('Bodyweight Squat', 'Air squat with perfect form', 'https://example.com/squat');
+
+-- Link them together
+INSERT INTO program_workouts (program_id, workout_id, sort_order) VALUES (1, 1, 1);
+INSERT INTO workout_sections (workout_id, section_id, sort_order) VALUES (1, 1, 1);
+INSERT INTO section_exercises (section_id, exercise_id, sets, reps, sort_order) 
+VALUES (1, 1, 3, 15, 1);
+To query in Supabase JavaScript client:
+javascript
+Copy
+// Get full program structure
+const { data, error } = await supabase
+  .from('program_workouts')
+  .select(`
+    sort_order,
+    workouts (
+      name,
+      workout_sections (
+        sort_order,
+        sections (
+          name,
+          section_exercises (
+            sort_order,
+            sets,
+            reps,
+            exercises (name, video_url)
+          )
+        )
+      )
+    )
+  )
+  .eq('program_id', 1);
+This structure will give you:
+
+Full reusability of components
+
+Maintainable ordering
+
+Efficient querying through proper indexing
+
+Automatic cleanup with CASCADE deletes
+
+Native Supabase relationship traversal
+
+Let me know if you need help with specific queries or want to add user progress tracking tables!
