@@ -1,0 +1,1 @@
+// Page for uploading the videos to supabase storage for inference on the server etc.  Will implement this first to allow for data collection and building a dataset.  Also with pro its 50GB max uploads.
