@@ -28,7 +28,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           id="skip"
           className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
         >
-          {children}
+          <div className='flex flex-col items-center justify-center'>
+            {children}
+          </div>
         </main>
         <Footer />
         <Suspense>
