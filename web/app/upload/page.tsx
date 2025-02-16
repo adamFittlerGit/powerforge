@@ -39,7 +39,9 @@ const VideoUpload: React.FC = () => {
             <button className=" m-1 bg-orange-300 text-black p-1 rounded" onClick={() => ref.current?.click()}>
                 Select Video
             </button>
-            <button className="bg-pink-300 text-black p-1 rounded" onClick={handleUpload} disabled={uploading}>
+            <button className="bg-pink-300 text-black p-1 rounded" onClick={handleUpload} disabled={uploading}/>
+            <input type="file" accept="video/*" onChange={handleFileChange} />
+            <button onClick={handleUpload} disabled={uploading}>
                 {uploading ? 'Uploading...' : 'Upload Video'}
             </button>
         </div>
